@@ -12,12 +12,12 @@ These scripts were written on Raspbian on a Raspberry Pi for a CircuitPlayground
 
 ...etc.
 
-### Quick Start
+### Install
 
-Open a Terminal window and copy-n-paste (or type) the following:
+Open a Terminal window and run the following:
 
 ```
-cd ~/Downloads	 # if your browser downloads elsewhere, edit ./install.sh
+cd ~/Downloads
 git clone https://github.com/eduncan911/circuitplayground-monitor-systemd
 cd circuitplayground-monitor-systemd
 ./install.sh
@@ -25,7 +25,7 @@ cd circuitplayground-monitor-systemd
 
 You are now ready to load up your CircuitPlayground Express.
 
-### How to Use
+### Usage
 
 1. Plug in your Circuit Playground Express (make sure the LEDs turn GREEN).
 
@@ -35,13 +35,24 @@ You are now ready to load up your CircuitPlayground Express.
 
 POOF!  Your Circuit Playground Express reboots and is running your custom software!
 
+### Change ~/Downloads Directory
+
+If your browser downloads to a different location than `~/Downloads/`, then you will need to edit two script files.
+
+    install.sh
+    move-uf2.sh
+
+Change the setting for `DOWNLOADS_DIR` in each file.
+
+Then, re-run the `./install.sh` again to update the Systemd unit files and re-enable them.
+
 ## About CircuitPlayground Systemd Monitor
 
-As a father, I have introduced my kids to several microcontrollers including UP Boards, Arduino and Raspberry Pis. Current their personal tablets all are based on the Raspberry Pi for the GPIO pins.  Since we have several CircuitPlayground devices (Express and Classic, from various Adabox, Starter Kits and other free aquires), I needed a way to ease their programming play by automating the way files are downloaded from MakeCode (and other online editors) and onto the Circuit Playground, without unleashing a six year old onto a local File Manager!  :)
+As a father, I have introduced my kids to several microcontrollers including UP Boards, Arduino and Raspberry Pis. Currently their project devices are based on the Raspberry Pi for the GPIO pins (I really want to move to UP Boards soon!).  Since we have several CircuitPlayground devices (Express and Classic), I needed a way to ease their programming play by automating the way files are downloaded from MakeCode (and other online editors) and onto the Circuit Playground without unleashing a six year old onto the local File Manager!  :)
 
 Therefore, the solution I came up with was to leverage Systemd's features to automate the copying process.
 
-Systemd comes with most FreeBSD and Linux flavors, such as Raspbian and Arch Linux (what a couple Raspberry Pis are running in our house).  So why not leverage these built-in utilities?
+Systemd comes with most FreeBSD and Linux flavors, such as Raspbian and Arch Linux (what all UP Boards and Raspberry Pis are running in our house).  So why not leverage these built-in utilities?
 
 As a bonus, in case something does go funky, I setup the scripts to run in the local Systemd `--user` space - and not as root.
 
@@ -55,7 +66,7 @@ That script file simply `moves` the matching file to your expected CircuitPlaygr
 
 ## Why not WebUSB?
 
-Google Chrome's `WebUSB` is pretty slick and works perfectly with Microsoft's MakeCode (https://makecode.adafruit.com/beta?webusb=1#editor).  If you are on a normal desktop running Google Chrome, you should really go that route.  Instructions can be found here: https://learn.adafruit.com/makecode/webusb
+Google Chrome's `WebUSB` is pretty slick and works perfectly with Microsoft's MakeCode (https://makecode.adafruit.com/beta?webusb=1#editor).  If you are on a normal desktop running Google Chrome, you can go that route.  Instructions can be found here: https://learn.adafruit.com/makecode/webusb
 
 However, `WebUSB` only works under two conditions:
 
@@ -105,9 +116,11 @@ Sep 02 12:44:59 circuit move-uf2.sh[10912]: Moving 'circuitplayground-dice.uf2' 
 
 Note that in this output, `Active: inactive (dead)` is normal and expected.  The file path monitor runs this service whenever the file is detected; it does not run all the time (nor would we want it to!).
 
-The most important parts to look for is the exit codes of the last run.  You can see that above on the line that starts with `Main PID`.  Focus on the part that says `status=0/SUCCESS`.  If it says anything else but `0/SUCCESS`, then there was a problem.
+The most important parts to look for is the exit codes of the last run.  You can see that above on the line that starts with `Main PID` or at the end of the `Process` line.  Focus on the part that says `status=0/SUCCESS`.  If it says anything else but `0/SUCCESS`, then there was a problem.
 
-You can see the log of the output below the `Main PID` entry.  In the example above, we have 4 log entries showing it found the file, where Circuit was mounted at, and that it moved the file.
+The most common cause of it not working is moving the directory that contains the `move-uf2.sh` script.  If there are any errors that the script was not found, just follow the instructions to install this utility again - it is written to run multiple times and overwrite the previous settings.
+
+You can also see the log of the output below the `Main PID` entry.  In the example above, we have 4 log entries showing it found the file, where Circuit was mounted at, and that it moved the file.
 
 ## Uninstall
 

@@ -5,7 +5,7 @@
 #####################
 
 # set to the downloads directory where your browser downloads to
-DOWNLOADS=~/Downloads
+DOWNLOADS_DIR=~/Downloads
 
 # set to the file pattern to glob
 CP_GLOB=circuitplayground-*.uf2
@@ -18,15 +18,15 @@ CP_MOUNT=/media/pi/CPLAYBOOT
 #####################
 
 # get the last downloaded file to move (ignore the rest)
-cd $DOWNLOADS
+cd $DOWNLOADS_DIR
 LATEST=$(ls -dt $CP_GLOB | head -1)
 RESULT=$?
 if [ "$RESULT" -ne 0 ]; then
-  echo "$RESULT: Error occured looking for latest '$DOWNLOADS/$CP_GLOB'"
+  echo "$RESULT: Error occured looking for latest '$DOWNLOADS_DIR/$CP_GLOB'"
   exit 10
 fi
 if [ -z "$LATEST" ]; then
-  echo "Could not find a file matching '$DOWNLOADS/$GP_GLOB'"
+  echo "Could not find a file matching '$DOWNLOADS_DIR/$GP_GLOB'"
   exit 11
 fi
 echo "Found file '$LATEST' to move."
@@ -42,7 +42,7 @@ echo "Found Circuit Playground mounted at '$CP_MOUNT'"
 echo "Moving '$LATEST' to '$CP_MOUNT/'"
 mv "$LATEST" "$CP_MOUNT/"
 if [ $RESULT -ne 0 ]; then
-  echo "$RESULT: Error occured moving '$DOWNLOADS/$CP_GLOB' to '$CP_MOUNT'"
+  echo "$RESULT: Error occured moving '$DOWNLOADS_DIR/$CP_GLOB' to '$CP_MOUNT'"
   exit 13
 fi
 echo "Move complete! Exiting script."
