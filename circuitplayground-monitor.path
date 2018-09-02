@@ -1,0 +1,17 @@
+# CircuitPlayground Express UF2 File Monitor
+# https://github.com/eduncan911/circuitplayground-systemd-monitor
+#
+# This systemd service will monitor your DOWNLOADS_DIR/ directory for
+# new files with the glob of circuitplayground-*.uf2.  When a new file
+# is detected, it will kick off a systemd service that will execute a
+# bash script.
+[Unit]
+Description= "User circuitplayground-monitor.path to monitor DOWNLOADS_DIR/circuitplayground-*.uf2"
+Documentation= "https://github.com/eduncan911/circuitplayground-systemd-monitor"
+
+[Path] 
+PathExistsGlob= DOWNLOADS_DIR/circuitplayground-*.uf2
+
+[Install]
+WantedBy= default.target
+

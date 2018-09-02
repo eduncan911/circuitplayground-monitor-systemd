@@ -1,0 +1,16 @@
+# CircuitPlayground Express UF2 File Monitor
+# https://github.com/eduncan911/circuitplayground-systemd-monitor
+#
+# This systemd service is run by the systemd unit circuitplayground-monitor.path 
+# monitor when it detects a file matching circuitplayground-*.uf2.
+[Unit]
+Description= "User circuitplayground-monitor.service that executes SCRIPT_DIR/move-uf2.sh"
+Documentation= "https://github.com/eduncan911/circuitplayground-systemd-monitor"
+
+[Service]
+Type= simple
+ExecStart= SCRIPT_DIR/move-uf2.sh
+
+[Install]
+WantedBy= default.target
+
