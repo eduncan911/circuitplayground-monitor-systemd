@@ -17,7 +17,7 @@ These scripts were written on Raspbian on a Raspberry Pi for a CircuitPlayground
 Open a Terminal window and copy-n-paste (or type) the following:
 
 ```
-cd ~/Downloads	# if your browser downloads elsewhere, edit ./install.sh
+cd ~/Downloads	 # if your browser downloads elsewhere, edit ./install.sh
 git clone https://github.com/eduncan911/circuitplayground-monitor-systemd
 cd circuitplayground-monitor-systemd
 ./install.sh
@@ -33,7 +33,7 @@ You are now ready to load up your CircuitPlayground Express.
 
 3. When ready to load, press the Save icon (or the Download button).
 
-Poof!  Your Circuit Playground Express reboots and is running your custom software!
+POOF!  Your Circuit Playground Express reboots and is running your custom software!
 
 ## About CircuitPlayground Systemd Monitor
 
@@ -43,7 +43,7 @@ Therefore, the solution I came up with was to leverage Systemd's features to aut
 
 Systemd comes with most FreeBSD and Linux flavors, such as Raspbian and Arch Linux (what a couple Raspberry Pis are running in our house).  So why not leverage these built-in utilities?
 
-As a bonus, in case something does go funky, I setup the scripts to run in the local Systemd `--user` space - and not as root.  
+As a bonus, in case something does go funky, I setup the scripts to run in the local Systemd `--user` space - and not as root.
 
 ## How does it work?
 
@@ -79,7 +79,7 @@ $ systemctl --user status circuitplayground-monitor.path
 ● circuitplayground-monitor.path - "User circuitplayground-monitor.path to monitor /home/pi/Downloads/circuitplayground-*.uf2"
    Loaded: loaded (/home/pi/.config/systemd/user/circuitplayground-monitor.path; enabled; vendor preset: enabled)
    Active: active (waiting) since Sun 2018-09-02 12:44:36 EDT; 1min 15s ago
-     Docs: https://github.com/eduncan911/circuitplayground-systemd-monitor
+     Docs: https://github.com/eduncan911/circuitplayground-monitor-systemd
 
 Sep 02 12:44:36 circuit systemd[540]: Started "User circuitplayground-monitor.path to monitor /home/pi/Downloads/circuitplayground-*.uf2".
 ```
@@ -93,7 +93,7 @@ $ systemctl --user status circuitplayground-monitor.service
 ● circuitplayground-monitor.service - "User circuitplayground-monitor.service that executes /home/pi/Downloads/circuitplayground-monitor-systemd/move-uf2.sh"
    Loaded: loaded (/home/pi/.config/systemd/user/circuitplayground-monitor.service; disabled; vendor preset: enabled)
    Active: inactive (dead) since Sun 2018-09-02 12:44:59 EDT; 8s ago
-     Docs: https://github.com/eduncan911/circuitplayground-systemd-monitor
+     Docs: https://github.com/eduncan911/circuitplayground-monitor-systemd
   Process: 10912 ExecStart=/home/pi/Downloads/circuitplayground-monitor-systemd/move-uf2.sh (code=exited, status=0/SUCCESS)
  Main PID: 10912 (code=exited, status=0/SUCCESS)
 
